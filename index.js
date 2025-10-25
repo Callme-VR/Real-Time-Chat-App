@@ -14,10 +14,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Dummy users (replace with DB later)
 const users = {
-  "alice": "123",
-  "bob": "456",
-  "vansh": "890",
-  "suyash":"786"
+  "anshika":1108,
+  "Akansha": "4560",
+  "Akash": "8909",
+  "mayank":"786"
 };
 
 io.on('connection', (socket) => {
