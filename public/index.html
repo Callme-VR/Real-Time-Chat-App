@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>💬 Realtime Chat</h1>
+
+    <!-- Login Section -->
+    <div id="loginSection">
+      <input id="username" type="text" placeholder="Username">
+      <input id="password" type="password" placeholder="Password">
+      <button id="loginBtn">Login</button>
+      <p id="loginStatus"></p>
+    </div>
+
+    <!-- Room Section -->
+    <div id="roomSection" class="hidden">
+      <input id="roomName" type="text" placeholder="Room name">
+      <button id="joinRoomBtn">Join Room</button>
+      <p id="roomStatus"></p>
+    </div>
+
+    <!-- Chat Section -->
+    <div id="chatSection" class="hidden">
+      <div id="chatBox"></div>
+      <div class="inputRow">
+        <input id="messageInput" type="text" placeholder="Type a message...">
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
