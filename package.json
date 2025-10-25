@@ -1,12 +1,13 @@
 {
   "name": "chat-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "A real-time chat application built with Node.js, Express, and Socket.IO",
   "license": "ISC",
   "author": "",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
