@@ -2,37 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chat App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimal Chat App</title>
   <link rel="stylesheet" href="style.css">
   <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>💬 Realtime Chat</h1>
+    <div class="logo-container">
+      <img src="images/chat-logo.svg" alt="Chat Logo" class="chat-logo">
+    </div>
+    <h1>Realtime Chat</h1>
 
     <!-- Login Section -->
-    <div id="loginSection">
-      <input id="username" type="text" placeholder="Username">
+    <section id="loginSection">
+      <input id="username" type="text" placeholder="Username" autocomplete="off">
       <input id="password" type="password" placeholder="Password">
       <button id="loginBtn">Login</button>
-      <p id="loginStatus"></p>
-    </div>
+      <p id="loginStatus" role="alert"></p>
+    </section>
 
     <!-- Room Section -->
-    <div id="roomSection" class="hidden">
-      <input id="roomName" type="text" placeholder="Room name">
+    <section id="roomSection" class="hidden">
+      <input id="roomName" type="text" placeholder="Room name" autocomplete="off">
       <button id="joinRoomBtn">Join Room</button>
-      <p id="roomStatus"></p>
-    </div>
+      <p id="roomStatus" role="alert"></p>
+    </section>
 
     <!-- Chat Section -->
-    <div id="chatSection" class="hidden">
-      <div id="chatBox"></div>
+    <section id="chatSection" class="hidden">
+      <div id="chatBox" aria-live="polite"></div>
       <div class="inputRow">
-        <input id="messageInput" type="text" placeholder="Type a message...">
+        <input id="messageInput" type="text" placeholder="Type a message..." autocomplete="off">
         <button id="sendBtn">Send</button>
       </div>
-    </div>
+    </section>
   </div>
 
   <script src="script.js"></script>
