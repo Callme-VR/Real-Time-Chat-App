@@ -2,8 +2,6 @@
 
 A modern, responsive chat application built with Node.js, Express, and Socket.IO that enables real-time communication between users in chat rooms.
 
-![Chat Application Preview](public/images/chat-logo.svg)
-
 ## 🌟 Features
 
 ### Real-Time Communication
@@ -21,7 +19,6 @@ A modern, responsive chat application built with Node.js, Express, and Socket.IO
 - Clean black and white minimalist design
 - Responsive layout for all device sizes
 - Intuitive user interface with smooth interactions
-- Custom chat logo and visual elements
 
 ### Technical Features
 - Real-time message synchronization
