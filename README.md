@@ -77,7 +77,7 @@ Real-Time-Chat-APP/
 
 1. Start the server:
    ```bash
-   node index.js
+   npm start
    ```
 
 2. Open your browser and navigate to:
