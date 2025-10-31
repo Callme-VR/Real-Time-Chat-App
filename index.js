@@ -1,9 +1,11 @@
 // index.js (Backend)
 
+
 const express = require("express");
 const http = require("http");
 const path = require("path");
 const { Server } = require("socket.io");
+
 
 const app = express();
 const server = http.createServer(app);
@@ -33,6 +35,8 @@ io.on("connection", (socket) => {
     }
   });
 
+
+
   socket.on("join-room", (roomName, callback) => {
     if (!socket.username) {
       return callback({ success: false, message: "Login first" });
@@ -43,6 +47,7 @@ io.on("connection", (socket) => {
     socket.to(roomName).emit("msg", `${socket.username} joined the room.`);
     console.log(`📂 ${socket.username} joined room: ${roomName}`);
   });
+
 
   socket.on("user-message", (msg) => {
     if (socket.currentRoom) {
