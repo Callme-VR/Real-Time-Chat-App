@@ -12,31 +12,14 @@ const io = new Server(server);
 // serve frontend files from public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Dummy users (replace with DB later)
-const users = {
-  "anshika":1108,
-  "Akansha": "4560",
-  "Akash": "8909",
-  "mayank":"786"
-};
-
 io.on('connection', (socket) => {
   console.log('🔗 New client connected:', socket.id);
 
-  socket.on('login', ({ username, password }, callback) => {
-    if (users[username] && users[username] === password) {
-      socket.username = username;
-      callback({ success: true });
-      console.log(`✅ ${username} logged in`);
-    } else {
-      callback({ success: false, message: 'Invalid credentials' });
+  socket.on('join-room', ({ username, roomName }, callback) => {
+    if (!username) {
+      return callback({ success: false, message: 'Username is required' });
     }
-  });
-
-  socket.on('join-room', (roomName, callback) => {
-    if (!socket.username) {
-      return callback({ success: false, message: 'Login first' });
-    }
+    socket.username = username;
     socket.join(roomName);
     socket.currentRoom = roomName;
     callback({ success: true, room: roomName });
@@ -55,8 +38,16 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('🔴 Client disconnected:', socket.id);
+    if (socket.username && socket.currentRoom) {
+      socket.to(socket.currentRoom).emit('msg', `${socket.username} left the room.`);
+      console.log(`🔴 ${socket.username} left room ${socket.currentRoom}`);
+    }
+    console.log('Client disconnected:', socket.id);
   });
 });
 
-server.listen(3000, () => console.log('🚀 Server running at http://localhost:3000'));
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
+

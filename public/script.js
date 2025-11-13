@@ -1,69 +1,40 @@
 const socket = io();
 
-const loginSection = document.getElementById('loginSection');
-const roomSection = document.getElementById('roomSection');
+const joinSection = document.getElementById('joinSection');
 const chatSection = document.getElementById('chatSection');
 const messageInput = document.getElementById('messageInput');
 
-// Add Enter key support for login
-document.getElementById('password').addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
-    document.getElementById('loginBtn').click();
-  }
-});
+const usernameInput = document.getElementById('username');
+const roomNameInput = document.getElementById('roomName');
+const joinBtn = document.getElementById('joinBtn');
+const joinStatus = document.getElementById('joinStatus');
 
-// Add Enter key support for room join
-document.getElementById('roomName').addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
-    document.getElementById('joinRoomBtn').click();
-  }
-});
-
-// Add Enter key support for message sending
-messageInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
-    document.getElementById('sendBtn').click();
-  }
-});
-
-document.getElementById('loginBtn').onclick = () => {
-  const username = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value.trim();
-
-  // Basic validation
-  if (!username || !password) {
-    document.getElementById('loginStatus').textContent = 'Please enter both username and password';
-    return;
-  }
-
-  socket.emit('login', { username, password }, (res) => {
-    if (res.success) {
-      loginSection.classList.add('hidden');
-      roomSection.classList.remove('hidden');
-      document.getElementById('roomName').focus();
-    } else {
-      document.getElementById('loginStatus').textContent = res.message || 'Login failed';
-    }
+const setupEnterKey = (input, button) => {
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') button.click();
   });
 };
 
-document.getElementById('joinRoomBtn').onclick = () => {
-  const roomName = document.getElementById('roomName').value.trim();
+setupEnterKey(usernameInput, joinBtn);
+setupEnterKey(roomNameInput, joinBtn);
+setupEnterKey(messageInput, document.getElementById('sendBtn'));
 
-  
-  // Basic validation
-  if (!roomName) {
-    document.getElementById('roomStatus').textContent = 'Please enter a room name';
+joinBtn.onclick = () => {
+  const username = usernameInput.value.trim();
+  const roomName = roomNameInput.value.trim();
+
+  if (!username || !roomName) {
+    joinStatus.textContent = 'Username and room name are required.';
     return;
   }
 
-  socket.emit('join-room', roomName, (res) => {
+  socket.emit('join-room', { username, roomName }, (res) => {
     if (res.success) {
-      roomSection.classList.add('hidden');
+      joinSection.classList.add('hidden');
       chatSection.classList.remove('hidden');
       messageInput.focus();
     } else {
-      document.getElementById('roomStatus').textContent = res.message || 'Join failed';
+      joinStatus.textContent = res.message || 'Failed to join room.';
     }
   });
 };
