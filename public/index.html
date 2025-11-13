@@ -14,11 +14,18 @@
     </div>
     <h1>Realtime Chat</h1>
 
-    <!-- Join Section -->
-    <section id="joinSection">
-      <input id="username" type="text" placeholder="Username" autocomplete="off">
+    <!-- Login Section -->
+    <section id="loginSection">
+      <input id="loginUsername" type="text" placeholder="Username" autocomplete="off">
+      <input id="loginPassword" type="password" placeholder="Password" autocomplete="off">
+      <button id="loginBtn">Login</button>
+      <p id="loginStatus" role="alert"></p>
+    </section>
+
+    <!-- Join Room Section -->
+    <section id="joinSection" class="hidden">
       <input id="roomName" type="text" placeholder="Room name" autocomplete="off">
-      <button id="joinBtn">Join Chat</button>
+      <button id="joinBtn">Join Room</button>
       <p id="joinStatus" role="alert"></p>
     </section>
 

@@ -16,10 +16,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Dummy users (replace with DB later)
 const users = {
-  "anshika":1108,
+  "anshika": "1108",
   "Akansha": "4560",
   "Akash": "8909",
-  "mayank":"786"
+  "mayank": "786"
 };
 
 io.on("connection", (socket) => {
@@ -65,4 +65,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3000, () => console.log('🚀 Server running at http://localhost:3000'));
+server.listen(3001, () => console.log('🚀 Server running at http://localhost:3001'));

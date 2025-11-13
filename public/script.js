@@ -1,10 +1,15 @@
 const socket = io();
 
+const loginSection = document.getElementById('loginSection');
 const joinSection = document.getElementById('joinSection');
 const chatSection = document.getElementById('chatSection');
 const messageInput = document.getElementById('messageInput');
 
-const usernameInput = document.getElementById('username');
+const loginUsernameInput = document.getElementById('loginUsername');
+const loginPasswordInput = document.getElementById('loginPassword');
+const loginBtn = document.getElementById('loginBtn');
+const loginStatus = document.getElementById('loginStatus');
+
 const roomNameInput = document.getElementById('roomName');
 const joinBtn = document.getElementById('joinBtn');
 const joinStatus = document.getElementById('joinStatus');
@@ -15,20 +20,41 @@ const setupEnterKey = (input, button) => {
   });
 };
 
-setupEnterKey(usernameInput, joinBtn);
+setupEnterKey(loginUsernameInput, loginBtn);
+setupEnterKey(loginPasswordInput, loginBtn);
 setupEnterKey(roomNameInput, joinBtn);
 setupEnterKey(messageInput, document.getElementById('sendBtn'));
 
-joinBtn.onclick = () => {
-  const username = usernameInput.value.trim();
-  const roomName = roomNameInput.value.trim();
+// Login handler
+loginBtn.onclick = () => {
+  const username = loginUsernameInput.value.trim();
+  const password = loginPasswordInput.value.trim();
 
-  if (!username || !roomName) {
-    joinStatus.textContent = 'Username and room name are required.';
+  if (!username || !password) {
+    loginStatus.textContent = 'Username and password are required.';
     return;
   }
 
-  socket.emit('join-room', { username, roomName }, (res) => {
+  socket.emit('login', { username, password }, (res) => {
+    if (res.success) {
+      loginSection.classList.add('hidden');
+      joinSection.classList.remove('hidden');
+      loginStatus.textContent = '';
+    } else {
+      loginStatus.textContent = res.message || 'Login failed.';
+    }
+  });
+};
+
+joinBtn.onclick = () => {
+  const roomName = roomNameInput.value.trim();
+
+  if (!roomName) {
+    joinStatus.textContent = 'Room name is required.';
+    return;
+  }
+
+  socket.emit('join-room', roomName, (res) => {
     if (res.success) {
       joinSection.classList.add('hidden');
       chatSection.classList.remove('hidden');
